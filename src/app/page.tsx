@@ -132,7 +132,8 @@ export default function Home() {
   const updateRow = (index: number, field: keyof PrescriptionRow, value: string | number | string[]) => {
     setRows((r) => {
       const next = [...r];
-      (next[index] as Record<string, unknown>)[field] = value;
+      const row = next[index];
+      next[index] = { ...row, [field]: value };
       if (field === "displayName" && typeof value === "string") {
         const drug = drugMaster.find((d) => d.displayName === value);
         if (drug) next[index].drugId = drug.id;
