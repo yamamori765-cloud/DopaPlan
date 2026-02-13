@@ -157,7 +157,7 @@ export default function Home() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl">
+          <h1 className="text-4xl sm:text-5xl">
             <Logo className="leading-none" />
           </h1>
           <p className="text-sm text-gray-600 mt-1.5">パーキンソン病診療をサポートする診療補助ツール</p>
