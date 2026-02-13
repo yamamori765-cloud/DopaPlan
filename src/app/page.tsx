@@ -108,7 +108,9 @@ export default function Home() {
     }
     setIsGeneratingQr(true);
     try {
-      const { toDataURL } = await import("qrcode");
+      const QRCode = await import("qrcode");
+      const toSJISMod = await import("qrcode/helper/to-sjis");
+      const toSJIS = toSJISMod.default ?? toSJISMod;
       const parts = 4;
       const len = text.length;
       const chunkSize = Math.ceil(len / parts);
@@ -116,7 +118,7 @@ export default function Home() {
       for (let i = 0; i < parts; i++) {
         const slice = text.slice(i * chunkSize, (i + 1) * chunkSize);
         const payload = `DopaPlan ${i + 1}/${parts}\n` + slice;
-        const url = await toDataURL(payload, { margin: 2, width: 220 });
+        const url = await QRCode.toDataURL(payload, { margin: 2, width: 220, toSJISFunc: toSJIS });
         urls.push(url);
       }
       setQrDataUrls(urls);
