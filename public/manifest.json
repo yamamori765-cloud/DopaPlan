@@ -1,0 +1,10 @@
+{
+  "name": "DopaPlan",
+  "short_name": "DopaPlan",
+  "description": "パーキンソン病の処方・LEDD換算と次の一手提案",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4142c8",
+  "lang": "ja"
+}

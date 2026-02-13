@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/yamamoto/app-develop/DopaPlan/src/app/layout\":[\"static/media/e4af272ccee01ff0-s.p.woff2\",\"static/media/e79be2621133830c-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
