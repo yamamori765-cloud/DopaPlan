@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/page.tsx -> qrcode\":{\"id\":\"app/page.tsx -> qrcode\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_qrcode_lib_browser_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"app/page.tsx -> qrcode\":{\"id\":\"app/page.tsx -> qrcode\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_qrcode_lib_browser_js.js\"]},\"app/page.tsx -> qrcode/helper/to-sjis\":{\"id\":\"app/page.tsx -> qrcode/helper/to-sjis\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_qrcode_helper_to-sjis_js.js\"]}}"

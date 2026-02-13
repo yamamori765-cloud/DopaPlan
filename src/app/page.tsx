@@ -229,6 +229,97 @@ export default function Home() {
           <div><dt className="text-gray-600">LEDD (Other)</dt><dd className="font-semibold text-gray-900">{formatLEDD(summary.other)}</dd></div>
           <div><dt className="text-gray-600">LEDD Total</dt><dd className="font-bold text-brand-800 text-lg">{formatLEDD(summary.total)}</dd></div>
         </dl>
+        <details className="mt-4 group">
+          <summary className="cursor-pointer text-sm font-medium text-brand-700 hover:text-brand-900 list-none flex items-center gap-1 [&::-webkit-details-marker]:hidden">
+            <span className="group-open:rotate-90 transition-transform">▶</span>
+            アゴニストスイッチ換算表
+          </summary>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-sm border border-gray-200 rounded-lg bg-white min-w-[520px]">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="px-3 py-2 text-left text-gray-600 sticky left-0 bg-gray-50 z-10">ドパミンアゴニスト (mg/日)</th>
+                  <th className="px-1 py-2 text-center text-gray-600 text-xs" colSpan={8}>用量（ロピニロール基準 2〜16mg）</th>
+                </tr>
+                <tr className="bg-gray-50/80 border-b border-gray-200">
+                  <th className="px-3 py-1 text-left text-xs font-normal text-gray-500 sticky left-0 bg-gray-50/80 z-10"></th>
+                  {["2", "4", "6", "8", "10", "12", "14", "16"].map((v) => (
+                    <th key={v} className="px-1 py-1 text-center text-xs font-normal text-gray-500">{v}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">ロピニロール</span>
+                    <span className="block text-gray-500 text-xs">レキップ<br />レキップCR</span>
+                  </td>
+                  {["2", "4", "6", "8", "10", "12", "14", "16"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">プラミペキソール</span>
+                    <span className="block text-gray-500 text-xs">ビ・シフロール<br />ミラペックス<br />ミラペックスLA</span>
+                  </td>
+                  {["~0.5", "1.0", "1.5", "2.0", "2.5", "3.5", "3.5", "4.0~"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">ブロモクリプチン</span>
+                    <span className="block text-gray-500 text-xs">パーロデル</span>
+                  </td>
+                  {["5", "10", "15", "20", "25", "30", "35", "40"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">カベルゴリン</span>
+                    <span className="block text-gray-500 text-xs">カバサール</span>
+                  </td>
+                  {["0.8", "1.5", "2〜2.5", "3.0", "—", "—", "—", "—"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">ペルゴリド</span>
+                    <span className="block text-gray-500 text-xs">ペルマックス</span>
+                  </td>
+                  {["0.5", "1.0", "1.5", "2.0", "2.5", "3.0", "3.5", "4.0"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">
+                      {v}
+                      {i >= 2 && <><br /><span className="text-gray-500">適応外</span></>}
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">ロチゴチン</span>
+                    <span className="block text-gray-500 text-xs">ニュープロパッチ</span>
+                  </td>
+                  {["4.5", "9", "13.5", "18", "22.5", "27", "31.5", "36"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-100 last:border-0">
+                  <td className="px-3 py-2 text-gray-800 sticky left-0 bg-white z-10">
+                    <span className="font-medium">ロピニロール（貼付剤）</span>
+                    <span className="block text-gray-500 text-xs">ハルロピテープ<br />（換算は参考表に基づく概算）</span>
+                  </td>
+                  {["8", "16", "24", "32", "40", "48", "56", "64"].map((v, i) => (
+                    <td key={i} className="px-1 py-2 text-center text-gray-700 text-xs">{v}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+            <p className="mt-2 text-xs text-gray-500">表2 ドパミンアゴニスト間での用量比（ガイドライン2011）を基に、診療ガイドライン2018の用量表を参考に16mgまで拡張。同一列が等価用量の目安。ハルロピは経口と換算が異なる。スイッチ時は患者の状態に応じて適宜用量調節すること。</p>
+          </div>
+        </details>
       </section>
 
       <section className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
