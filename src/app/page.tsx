@@ -175,21 +175,21 @@ export default function Home() {
         <h2 className="text-lg font-semibold text-gray-800 mb-4">処方入力</h2>
         <p className="text-sm text-gray-500 mb-4">薬剤名・1回量・1日回数を入力すると、総LEDDを即時計算します。</p>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm table-fixed">
             <thead>
               <tr className="border-b border-gray-200 text-left text-gray-600">
-                <th className="pb-2 pr-2">薬剤（商品名）</th>
-                <th className="pb-2 pr-2 w-24">1回量</th>
-                <th className="pb-2 pr-2 w-20">回数/日</th>
-                <th className="pb-2 w-20">LEDD</th>
-                <th className="w-10" />
+                <th className="pb-2 pr-2 min-w-0">薬剤（商品名）</th>
+                <th className="pb-2 pr-1 w-14 sm:w-20">1回量</th>
+                <th className="pb-2 pr-1 w-10 sm:w-14">回数/日</th>
+                <th className="pb-2 pr-1 w-10 sm:w-14">LEDD</th>
+                <th className="pb-2 w-8 sm:w-10" />
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
                 <tr key={i} className="border-b border-gray-100">
-                  <td className="py-2 pr-2">
-                    <select className="w-full rounded border border-gray-300 px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.displayName} onChange={(e) => updateRow(i, "displayName", e.target.value)}>
+                  <td className="py-2 pr-1 sm:pr-2 min-w-0">
+                    <select className="w-full min-w-0 rounded border border-gray-300 px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.displayName} onChange={(e) => updateRow(i, "displayName", e.target.value)}>
                       <option value="">選択</option>
                       {DRUGS_BY_CATEGORY.map((group) => (
                         <optgroup key={group.category} label={group.label}>
@@ -201,15 +201,15 @@ export default function Home() {
                     </select>
                     {row.displayName && <div className="text-xs text-gray-500 mt-1">{getDrugByDisplayName(row.displayName)?.brandName}</div>}
                   </td>
-                  <td className="py-2 pr-2">
-                    <input type="number" min={0} step={0.5} className="w-full rounded border border-gray-300 px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.dose || ""} onChange={(e) => updateRow(i, "dose", parseFloat(e.target.value) || 0)} placeholder="mg" />
+                  <td className="py-2 pr-1 sm:pr-2 w-14 sm:w-20">
+                    <input type="number" min={0} step={0.5} className="w-full rounded border border-gray-300 px-1.5 sm:px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.dose || ""} onChange={(e) => updateRow(i, "dose", parseFloat(e.target.value) || 0)} placeholder="mg" />
                   </td>
-                  <td className="py-2 pr-2">
-                    <input type="number" min={1} max={10} className="w-full rounded border border-gray-300 px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.freq || ""} onChange={(e) => updateRow(i, "freq", parseInt(e.target.value, 10) || 1)} />
+                  <td className="py-2 pr-1 sm:pr-2 w-10 sm:w-14">
+                    <input type="number" min={1} max={10} className="w-full rounded border border-gray-300 px-1.5 sm:px-2 py-1.5 text-gray-800 focus:border-brand-500 focus:ring-1 focus:ring-brand-500" value={row.freq || ""} onChange={(e) => updateRow(i, "freq", parseInt(e.target.value, 10) || 1)} />
                   </td>
-                  <td className="py-2 text-gray-700 font-medium">{formatLEDD(rxWithLEDD[i]?.leddValue ?? 0)}</td>
-                  <td className="py-2">
-                    <button type="button" onClick={() => removeRow(i)} className="text-red-600 hover:underline text-xs" aria-label="行を削除">削除</button>
+                  <td className="py-2 pr-1 sm:pr-2 w-10 sm:w-14 text-gray-700 font-medium text-right">{formatLEDD(rxWithLEDD[i]?.leddValue ?? 0)}</td>
+                  <td className="py-2 w-8 sm:w-10">
+                    <button type="button" onClick={() => removeRow(i)} className="text-red-600 hover:underline text-xs whitespace-nowrap" aria-label="行を削除">削除</button>
                   </td>
                 </tr>
               ))}
