@@ -1,5 +1,5 @@
-export const SLOTS_PER_DAY = 48;
-export const MINUTES_PER_SLOT = 30;
+export const SLOTS_PER_DAY = 24;
+export const MINUTES_PER_SLOT = 60;
 
 export function slotToTime(slot: number): string {
   const h = Math.floor((slot * MINUTES_PER_SLOT) / 60);

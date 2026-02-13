@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { SLOTS_PER_DAY, slotToTime, type SymptomTimeline } from "@/lib/symptoms";
 
 type Kind = "off" | "dyskinesia";
@@ -21,6 +21,7 @@ function TimelineBar({
 }) {
   const [hoveredSlot, setHoveredSlot] = useState<number | null>(null);
   const [drag, setDrag] = useState<{ fillValue: boolean } | null>(null);
+  const barRef = useRef<HTMLDivElement>(null);
 
   const timeLabel = hoveredSlot !== null
     ? `${slotToTime(hoveredSlot)} ～ ${slotToTime(hoveredSlot + 1)}`
@@ -28,10 +29,20 @@ function TimelineBar({
 
   const setSlot = useCallback(
     (slot: number, toValue: boolean) => {
-      onChange(value.map((v, i) => (i === slot ? toValue : v)));
+      const base = value.length >= SLOTS_PER_DAY ? value.slice(0, SLOTS_PER_DAY) : [...value, ...Array(SLOTS_PER_DAY - value.length).fill(false)];
+      onChange(base.map((v, i) => (i === slot ? toValue : v)));
     },
     [value, onChange]
   );
+
+  const getSlotFromClientX = useCallback((clientX: number): number => {
+    const el = barRef.current;
+    if (!el) return 0;
+    const rect = el.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, x / rect.width));
+    return Math.min(SLOTS_PER_DAY - 1, Math.floor(ratio * SLOTS_PER_DAY));
+  }, []);
 
   const handleMouseDown = useCallback(
     (slot: number) => {
@@ -48,6 +59,28 @@ function TimelineBar({
       if (drag) setSlot(slot, drag.fillValue);
     },
     [drag, setSlot]
+  );
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      const touch = e.touches[0];
+      const slot = getSlotFromClientX(touch.clientX);
+      const nextValue = !value[slot];
+      setSlot(slot, nextValue);
+      setDrag({ fillValue: nextValue });
+    },
+    [value, setSlot, getSlotFromClientX]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!drag) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      const slot = getSlotFromClientX(touch.clientX);
+      setSlot(slot, drag.fillValue);
+    },
+    [drag, setSlot, getSlotFromClientX]
   );
 
   const endDrag = useCallback(() => setDrag(null), []);
@@ -70,8 +103,14 @@ function TimelineBar({
         )}
       </div>
       <div
-        className="flex border border-gray-200 rounded-lg overflow-hidden mt-1 select-none"
+        ref={barRef}
+        className="flex border border-gray-200 rounded-lg overflow-hidden mt-1 select-none touch-none"
         onMouseLeave={() => setHoveredSlot(null)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={endDrag}
+        onTouchCancel={endDrag}
+        style={{ touchAction: "none" }}
       >
         {Array.from({ length: SLOTS_PER_DAY }, (_, i) => (
           <div
@@ -106,7 +145,7 @@ export function SymptomTimeline({
   return (
     <div className="space-y-3">
       <p className="text-sm text-gray-600">
-        1日のうち該当する時間帯をクリックで選択。ドラッグで連続選択できます。カーソルを合わせると時刻がバー上に表示されます。
+        1時間刻みで該当する時間帯をタップ・クリックで選択。なぞると連続選択できます（スマホ対応）。
       </p>
       <div>
         <TimelineBar
