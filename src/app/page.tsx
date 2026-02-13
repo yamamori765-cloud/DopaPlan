@@ -209,7 +209,7 @@ export default function Home() {
                   </td>
                   <td className="py-2 pr-1 sm:pr-2 w-10 sm:w-14 text-gray-700 font-medium text-right">{formatLEDD(rxWithLEDD[i]?.leddValue ?? 0)}</td>
                   <td className="py-2 w-8 sm:w-10">
-                    <button type="button" onClick={() => removeRow(i)} className="text-red-600 hover:underline text-xs whitespace-nowrap" aria-label="行を削除">削除</button>
+                    <button type="button" onClick={() => removeRow(i)} className="flex items-center justify-center w-8 h-8 rounded border border-red-300 bg-red-50 text-red-600 hover:bg-red-100 text-sm font-medium" aria-label="行を削除">✗</button>
                   </td>
                 </tr>
               ))}
