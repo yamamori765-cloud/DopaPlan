@@ -230,21 +230,7 @@ export default function Home() {
       </section>
 
       <section className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <h2 className="text-lg font-semibold text-gray-800">症状プロファイリング</h2>
-          <button
-            type="button"
-            onClick={() => {
-              if (typeof window === "undefined" || window.confirm("OFF・ジスキネジアのタイムラインと随伴症状をリセットしますか？")) {
-                setTimeline(createEmptyTimeline());
-                setCompanion(defaultCompanionSymptoms);
-              }
-            }}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-          >
-            プロファイリングをリセット
-          </button>
-        </div>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">症状プロファイリング</h2>
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">1日のタイムライン</h3>

@@ -12,12 +12,14 @@ function TimelineBar({
   onChange,
   label,
   barColorOn,
+  onReset,
 }: {
   kind: Kind;
   value: boolean[];
   onChange: (next: boolean[]) => void;
   label: string;
   barColorOn: string;
+  onReset?: () => void;
 }) {
   const [hoveredSlot, setHoveredSlot] = useState<number | null>(null);
   const [drag, setDrag] = useState<{ fillValue: boolean } | null>(null);
@@ -94,12 +96,19 @@ function TimelineBar({
 
   return (
     <div>
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-xs font-medium">{label}</span>
-        {timeLabel && (
-          <span className="text-xs text-gray-600 font-mono bg-gray-100 px-2 py-0.5 rounded">
-            {timeLabel}
-          </span>
+      <div className="flex items-center justify-between gap-2 mb-1">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium">{label}</span>
+          {timeLabel && (
+            <span className="text-xs text-gray-600 font-mono bg-gray-100 px-2 py-0.5 rounded">
+              {timeLabel}
+            </span>
+          )}
+        </div>
+        {onReset && (
+          <button type="button" onClick={onReset} className="text-xs text-gray-500 hover:text-gray-700 underline flex-shrink-0">
+            リセット
+          </button>
         )}
       </div>
       <div
@@ -154,6 +163,7 @@ export function SymptomTimeline({
           onChange={(next) => onChange({ ...value, off: next })}
           label="OFFが強い時間"
           barColorOn="bg-amber-500/70 hover:bg-amber-500"
+          onReset={() => onChange({ ...value, off: Array(SLOTS_PER_DAY).fill(false) })}
         />
       </div>
       <div>
@@ -163,6 +173,7 @@ export function SymptomTimeline({
           onChange={(next) => onChange({ ...value, dyskinesia: next })}
           label="ジスキネジアが出る時間"
           barColorOn="bg-rose-500/70 hover:bg-rose-500"
+          onReset={() => onChange({ ...value, dyskinesia: Array(SLOTS_PER_DAY).fill(false) })}
         />
       </div>
       <div className="flex text-xs text-gray-500 justify-between px-0.5">
